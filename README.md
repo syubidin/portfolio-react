@@ -26,7 +26,7 @@
 
 <br/>
 
-[Live Demo](https://portfolio-react-syubidin.vercel.app) • [Design Philosophy](#-the-architectural-manifesto) • [System Architecture](#-system-architecture) • [Single-File Content Engine](#-single-file-content-engine-srccontentjs) • [Deployment](#-deployment-to-vercel)
+[Live Demo](https://this-is-syuby.vercel.app) • [Design Philosophy](#-the-architectural-manifesto) • [System Architecture](#-system-architecture) • [Single-File Content Engine](#-single-file-content-engine-srccontentjs) • [Deployment](#-deployment-to-vercel)
 
 ---
 
