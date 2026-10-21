@@ -19,30 +19,57 @@ const SITE = {
     ["Languages", "English (TOEIC 945), Indonesian"]
   ],
 
+  resume: "assets/resume.pdf",
+  whatsapp: "https://wa.me/6289519850089?text=Halo%20Syuby,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi.",
+
   projects: [
     {
       year: "2026",
+      category: "Full Stack",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
       stack: ["PHP", "Tailwind", "CodeIgniter 3", "MySQL"],
       image: "assets/projects/elp-crm.png",
       demo: "https://syubidin-crm.infinityfreeapp.com",
-      repo: "https://github.com/syubidin/elp-crm"
+      repo: "https://github.com/syubidin/elp-crm",
+      caseStudy: {
+        role: "Lead Full Stack Developer & Database Designer",
+        timeline: "Oct 2025 – Aug 2026",
+        overview: "An integrated web platform designed for Politeknik LP3I Jakarta to bridge alumni tracking, tracer study data collection, and automatic accreditation reporting.",
+        challenges: [
+          "Manual tracer study surveys previously suffered from low response rates and error-prone spreadsheet consolidation.",
+          "Need for role-based permissions separating administrative staff, institutional leadership, and alumni respondents.",
+          "Dynamic questionnaire requirements where tracer questions evolve across accreditation cycles."
+        ],
+        solutions: [
+          "Architected a normalized MySQL relational database schema ensuring data consistency across survey waves.",
+          "Developed custom report-generation modules with statistical summaries and Excel/PDF export readiness.",
+          "Implemented responsive, mobile-first interface using Tailwind CSS and lightweight CodeIgniter 3 architecture for rapid response times on budget hosting.",
+          "Iterated with 3+ rounds of usability testing alongside campus career center officers."
+        ],
+        highlights: [
+          "100% automated aggregation of alumni employment metrics",
+          "Role-based authentication & session security",
+          "Comprehensive tracer study questionnaire management"
+        ]
+      }
     },
     {
       year: "Soon",
+      category: "Mobile",
       title: "Project Two (Coming Soon)",
-      text: "Coming Soon.",
-      stack: [],
+      text: "Upcoming Mobile Application project built with cross-platform architecture and cloud backend integration.",
+      stack: ["Flutter", "Supabase", "REST APIs"],
       image: "assets/projects/project-two.png",
       demo: "",
       repo: ""
     },
     {
       year: "Soon",
+      category: "Enterprise",
       title: "Project Three (Coming Soon)",
-      text: "Coming Soon.",
-      stack: [],
+      text: "Upcoming enterprise management system focusing on scalable data schemas and automated workflows.",
+      stack: ["Laravel", "MySQL", "Docker"],
       image: "assets/projects/project-three.png",
       demo: "",
       repo: ""
@@ -84,16 +111,20 @@ const SITE = {
   },
 
   certs: [
-    "Associate Data Scientist, Institut Teknologi Bandung",
-    "Junior Web Developer, BNSP",
-    "Junior Database Administrator, BNSP",
-    "Application Programmer, BNSP",
-    "Tenaga Operasi Komputer, BNSP",
-    "Project Based Learning Competence, PT Bangun Karya Abadi"
+    { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2024", id: "ITB-ADS-2024" },
+    { name: "Junior Web Developer", issuer: "BNSP (Badan Nasional Sertifikasi)", year: "2024", id: "BNSP-JWD-2024" },
+    { name: "Junior Database Administrator", issuer: "BNSP", year: "2024", id: "BNSP-JDA-2024" },
+    { name: "Application Programmer", issuer: "BNSP", year: "2024", id: "BNSP-AP-2024" },
+    { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2023", id: "BNSP-TOK-2023" },
+    { name: "Project Based Learning Competence", issuer: "PT Bangun Karya Abadi", year: "2023", id: "BKA-PBL-2023" }
   ],
 
   email: "syubyattala806@gmail.com",
-  links: [["LinkedIn", "https://linkedin.com/in/syuby-alwi-akbar-attala"], ["GitHub", "https://github.com/syubidin"]],
+  links: [
+    ["WhatsApp", "https://wa.me/6289519850089?text=Halo%20Syuby,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi."],
+    ["LinkedIn", "https://linkedin.com/in/syuby-alwi-akbar-attala"],
+    ["GitHub", "https://github.com/syubidin"]
+  ],
 
   hello: {
     title: "Let’s build something that lasts.",
