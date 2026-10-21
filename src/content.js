@@ -24,9 +24,9 @@ const SITE = {
       year: "2026",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
-      stack: ["PHP", "CodeIgniter 3", "MySQL"],
+      stack: ["PHP", "Tailwind", "CodeIgniter 3", "MySQL"],
       image: "assets/projects/elp-crm.png",
-      demo: "",
+      demo: "https://syubidin-crm.infinityfreeapp.com",
       repo: "https://github.com/syubidin/elp-crm"
     },
     {
