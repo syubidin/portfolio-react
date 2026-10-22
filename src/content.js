@@ -135,12 +135,13 @@ const SITE = {
   },
 
   certs: [
-    { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2024", id: "ITB-ADS-2024" },
-    { name: "Junior Web Developer", issuer: "BNSP (Badan Nasional Sertifikasi)", year: "2024", id: "BNSP-JWD-2024" },
-    { name: "Junior Database Administrator", issuer: "BNSP", year: "2024", id: "BNSP-JDA-2024" },
-    { name: "Application Programmer", issuer: "BNSP", year: "2024", id: "BNSP-AP-2024" },
-    { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2023", id: "BNSP-TOK-2023" },
-    { name: "Project Based Learning Competence", issuer: "PT Bangun Karya Abadi", year: "2023", id: "BKA-PBL-2023" }
+    { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023" },
+    { name: "Junior Web Developer", issuer: "BNSP (Badan Nasional Sertifikasi)", year: "2023", id: "620902513300467052023" },
+    { name: "Database Administrator", issuer: "BNSP", year: "2025", id: "620903122300010592025" },
+    { name: "Application Programmer", issuer: "BNSP", year: "2023", id: "620102514200009222023" },
+    { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2024", id: "620903122300030792024" },
+    { name: "Project Based Learning Competence", issuer: "PT Bangun Karya Abadi", year: "2023", id: "422.3/308/SMKN.2-Cadisdik Will.III" },
+    { name: "Junior Web Developer", issuer: "PT Telkom Cipta Prima", year: "2022", id: "A2202703" }
   ],
 
   email: "syubyattala806@gmail.com",
