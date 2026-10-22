@@ -33,7 +33,7 @@ const SITE = {
       repo: "https://github.com/syubidin/cermat",
       caseStudy: {
         role: "Lead Backend & Distributed Systems Engineer",
-        timeline: "8-Week Incremental Build",
+        timeline: "Sep 2026 - Oct 2026",
         overview: "CERMAT (Catatan Elektronik, Rekonsiliasi, Mutasi, Audit, Transaksi) simulates core-banking ledger challenges where money can never duplicate, disappear, or settle inconsistently under concurrent stress.",
         challenges: [
           "Eliminating double-spending and race conditions when multiple concurrent debit requests hit the same account simultaneously.",
