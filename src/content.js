@@ -1,16 +1,15 @@
-
 const SITE = {
   name: "Syuby Alwi Akbar Attala",
   headline: ["Building", "digital", "solutions", "with purpose"],
-  roles: ["Full Stack Developer", "Mobile App Developer", "Informatics Management Graduate"],
+  roles: ["Full Stack Developer", "Backend & Systems Developer", "Informatics Management Graduate"],
   status: "Open to entry-level roles",
   coords: "6.2397° S, 107.0015° E",
 
   photo: "assets/face.png",
   about: [
-    "I like things that hold weight: clean schemas, clear requirements, and systems people can lean on.",
-    "I build full stack web apps with PHP, CodeIgniter, Laravel and MySQL, configured a .NET accounting system for real clients, and led a multi-division student organization as BEM Chairman.",
-    "Right now I’m looking for an entry-level Full Stack or Mobile App Developer role."
+    "I like things that hold weight: clean schemas, bulletproof transaction invariants, and systems people can lean on.",
+    "I engineer high-integrity backend systems in Java 17 & Spring Boot (double-entry core banking ledgers, deterministic concurrency control, and sharded balances), build full stack web apps with PHP & Laravel, and configured enterprise accounting systems for real clients.",
+    "Right now I’m looking for an entry-level Backend, Full Stack, or Software Engineer role where reliability and architectural rigor matter."
   ],
   facts: [
     ["Based in", "Bekasi, Indonesia"],
@@ -25,6 +24,41 @@ const SITE = {
   projects: [
     {
       year: "2026",
+      category: "Backend & Systems",
+      title: "CERMAT: Core-Banking Ledger Engine",
+      text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
+      stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
+      image: "assets/projects/cermat.png",
+      demo: "https://github.com/syubidin/cermat#readme",
+      repo: "https://github.com/syubidin/cermat",
+      caseStudy: {
+        role: "Lead Backend & Distributed Systems Engineer",
+        timeline: "8-Week Incremental Build",
+        overview: "CERMAT (Catatan Elektronik, Rekonsiliasi, Mutasi, Audit, Transaksi) simulates core-banking ledger challenges where money can never duplicate, disappear, or settle inconsistently under concurrent stress.",
+        challenges: [
+          "Eliminating double-spending and race conditions when multiple concurrent debit requests hit the same account simultaneously.",
+          "Preventing transaction deadlocks when cross-account transfers (A→B and B→A) execute at the exact same millisecond.",
+          "Mitigating severe hot-row lock contention on the central system cash account during peak deposit volume.",
+          "Preventing Formula Injection attacks and redundant reprocessing in automated partner CSV reconciliation."
+        ],
+        solutions: [
+          "Implemented Double-Entry Bookkeeping (Debit = Credit) with kernel-level database triggers enforcing strict append-only ledger immutability (blocking UPDATE/DELETE).",
+          "Engineered atomic idempotency resolution using 'INSERT ... ON CONFLICT DO NOTHING' paired with SHA-256 payload verification.",
+          "Applied Pessimistic Write Locking ('SELECT ... FOR UPDATE') with deterministic ordering ('ORDER BY id') to guarantee zero transaction deadlocks.",
+          "Architected 16 dynamic balance shards for system cash accounts, reducing lock queue time and boosting deposit throughput by +30.9%.",
+          "Constructed runtime fraud detection rule engine (HIGH_AMOUNT, VELOCITY, NEW_PAYEE) and instant account freezing capabilities.",
+          "Secured multi-role RBAC via Stateless JWT (HS256), strict character whitelisting against CSV injection, and in-memory sliding-window rate limiting before BCrypt hashing."
+        ],
+        highlights: [
+          "104 automated unit, integration, and stress tests passing with 92% JaCoCo code coverage",
+          "Zero deadlocks and zero balance underflow proven under 150 concurrent transfers",
+          "Global mathematical invariant guarantee: total circulating balance strictly equals 0",
+          "Automated reconciliation engine matching partner records with 4 distinct discrepancy states"
+        ]
+      }
+    },
+    {
+      year: "2026",
       category: "Full Stack",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
@@ -35,7 +69,7 @@ const SITE = {
       caseStudy: {
         role: "Lead Full Stack Developer & Database Designer",
         timeline: "Oct 2025 – Aug 2026",
-        overview: "An integrated web platform designed for Politeknik LP3I Jakarta to bridge alumni tracking, tracer study data collection, and automatic accreditation reporting.",
+        overview: "An integrated web platform designed for English Language Programs to bridge alumni tracking, tracer study data collection, and automatic accreditation reporting.",
         challenges: [
           "Manual tracer study surveys previously suffered from low response rates and error-prone spreadsheet consolidation.",
           "Need for role-based permissions separating administrative staff, institutional leadership, and alumni respondents.",
@@ -57,22 +91,12 @@ const SITE = {
     {
       year: "Soon",
       category: "Mobile",
-      title: "Project Two (Coming Soon)",
-      text: "Upcoming Mobile Application project built with cross-platform architecture and cloud backend integration.",
-      stack: ["Flutter", "Supabase", "REST APIs"],
+      title: "PlantCare & EcoMobile (Coming Soon)",
+      text: "Upcoming mobile application built with cross-platform Flutter architecture, dynamic state management, and cloud backend integration.",
+      stack: ["Flutter", "Dart", "Supabase", "REST APIs"],
       image: "assets/projects/project-two.png",
       demo: "",
-      repo: ""
-    },
-    {
-      year: "Soon",
-      category: "Enterprise",
-      title: "Project Three (Coming Soon)",
-      text: "Upcoming enterprise management system focusing on scalable data schemas and automated workflows.",
-      stack: ["Laravel", "MySQL", "Docker"],
-      image: "assets/projects/project-three.png",
-      demo: "",
-      repo: ""
+      repo: "https://github.com/syubidin/PlantCare"
     }
   ],
 
@@ -105,9 +129,9 @@ const SITE = {
 
   kit: {
     "Front of house": ["HTML", "CSS", "JavaScript", "Bootstrap", "Tailwind", "React", "Flutter", "Responsive design", "SDLC"],
-    "Back of house": ["PHP", "CodeIgniter", "Laravel", "Python", "Java", "C++", "Node.js basics"],
-    "Data and APIs": ["MySQL", "Supabase", "Schema design", "REST APIs"],
-    "Workshop": ["Git", "Figma", "Linux basics", "Microsoft 365", "AI-assisted development"]
+    "Back of house": ["Java 17", "Spring Boot 3", "PHP", "CodeIgniter", "Laravel", "Python", "C++", "Node.js basics"],
+    "Data and APIs": ["PostgreSQL", "MySQL", "Flyway", "Supabase", "Double-Entry Ledger", "Schema design", "REST APIs"],
+    "Workshop": ["Git", "Docker", "JaCoCo", "Postman", "Swagger / OpenAPI", "Figma", "Linux basics", "AI-assisted development"]
   },
 
   certs: [
