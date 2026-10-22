@@ -1,7 +1,7 @@
 const SITE = {
   name: "Syuby Alwi Akbar Attala",
   headline: ["Building", "digital", "solutions", "with purpose"],
-  roles: ["Full Stack Developer", "Backend & Systems Developer", "Informatics Management Graduate"],
+  roles: ["Full Stack Developer", "Backend & Systems Developer", "Mobile App Developer"],
   status: "Open to entry-level roles",
   coords: "6.2397° S, 107.0015° E",
 
