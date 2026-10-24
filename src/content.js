@@ -59,6 +59,37 @@ const SITE = {
     },
     {
       year: "2026",
+      category: "Front-End",
+      title: "PT Intimart Elang Perkasa Company Profile",
+      text: "A corporate website built for PT Intimart Elang Perkasa (I.W. Group). Features responsive modern layouts, real-time product catalog filtering across FMCG and fashion lines, interactive count-up statistics, partner registration workflows, and WhatsApp inquiry routing.",
+      stack: ["React 18", "Vite 6", "anime.js", "React Router", "Vanilla CSS", "Responsive Design", "Vercel"],
+      image: "assets/projects/intimart.png",
+      demo: "https://intimart.vercel.app",
+      repo: "https://github.com/syubidin/intimart-react",
+      caseStudy: {
+        role: "Lead Front-End Developer & UI Designer",
+        timeline: "Oct 2026",
+        overview: "A modern corporate presence representing PT Intimart Elang Perkasa's multi-sector operations — spanning FMCG retail, Metafashion apparel, and strategic supplier partnerships.",
+        challenges: [
+          "Presenting distinct corporate divisions (Retail FMCG, Fashion, and Agricultural partnerships) under one unified brand identity.",
+          "Delivering a lag-free product catalog experience with live search and multi-category filtering.",
+          "Ensuring high-conversion inbound lead generation for both retail consumers and wholesale prospective partners."
+        ],
+        solutions: [
+          "Developed component-driven UI using React 18 and Vite 6 with custom CSS styling and Outfit Variable typography.",
+          "Implemented micro-animations, count-up statistics, and smooth entrance reveals using anime.js.",
+          "Built instant client-side catalog filtering and search with direct WhatsApp pre-filled order links.",
+          "Constructed dedicated partnership onboarding pages with automated inquiry routing and validated contact forms."
+        ],
+        highlights: [
+          "Deployed live on Vercel Edge Network with sub-second page loads and zero layout shifts",
+          "Seamless multi-page SPA navigation powered by React Router v7",
+          "100% mobile-responsive design optimized for cross-device touch interactions"
+        ]
+      }
+    },
+    {
+      year: "2026",
       category: "Full Stack",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
