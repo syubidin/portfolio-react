@@ -29,7 +29,7 @@ const SITE = {
       text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
       stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
       image: "assets/projects/cermat.png",
-      demo: "https://github.com/syubidin/cermat#readme",
+      demo: "https://cermat-production.up.railway.app/swagger-ui.html",
       repo: "https://github.com/syubidin/cermat",
       caseStudy: {
         role: "Lead Backend & Distributed Systems Engineer",
