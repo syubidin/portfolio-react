@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const NAV = [['who', 'Who'], ['work', 'Work'], ['trail', 'Trail'], ['kit', 'Kit'], ['hello', 'Hello']];
+const NAV = [['who', 'Who'], ['work', 'Works'], ['trail', 'Trail'], ['kit', 'Kit'], ['hello', 'Hello']];
 
 export default function Rail() {
   const meter = useRef(null);

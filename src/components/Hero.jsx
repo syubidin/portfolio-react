@@ -30,7 +30,7 @@ export default function Hero() {
       </h1>
       <div className="tag">{S.status}</div>
       <div className="hero-bts">
-        <a className="bt hero-bt-primary" href="#work">Explore Work ↓</a>
+        <a className="bt hero-bt-primary" href="#work">Explore Works ↓</a>
         <a className="bt" href={S.resume || '#hello'} target="_blank" rel="noopener">Download CV ↗</a>
       </div>
       <div className="mq" aria-hidden="true">

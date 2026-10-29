@@ -77,7 +77,7 @@ export default function Work() {
   }, []);
 
   return (
-    <Section id="work" title="Work">
+    <Section id="work" title="Works">
       {/* Category Filter Badges */}
       <div className="filter-bar" role="tablist" aria-label="Project category filter">
         {categories.map((cat) => {
