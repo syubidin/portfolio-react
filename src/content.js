@@ -167,7 +167,8 @@ const SITE = {
 
   certs: [
     { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023" },
-    { name: "Junior Web Developer", issuer: "BNSP (Badan Nasional Sertifikasi)", year: "2023", id: "620902513300467052023" },
+    { name: "TOEIC Certification (945)", issuer: "Educational Testing Service", year: "2026", id: "1992618" },
+    { name: "Junior Web Developer", issuer: "BNSP", year: "2023", id: "620902513300467052023" },
     { name: "Database Administrator", issuer: "BNSP", year: "2025", id: "620903122300010592025" },
     { name: "Application Programmer", issuer: "BNSP", year: "2023", id: "620102514200009222023" },
     { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2024", id: "620903122300030792024" },
@@ -178,7 +179,7 @@ const SITE = {
   email: "syubyattala806@gmail.com",
   links: [
     ["WhatsApp", "https://wa.me/6289519850089?text=Halo%20Syuby,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi."],
-    ["LinkedIn", "https://linkedin.com/in/syuby-alwi-akbar-attala"],
+    ["LinkedIn", "https://www.linkedin.com/in/syuby-alwi-akbar-attala"],
     ["GitHub", "https://github.com/syubidin"]
   ],
 
