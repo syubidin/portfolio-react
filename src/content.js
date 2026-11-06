@@ -59,6 +59,40 @@ const SITE = {
     },
     {
       year: "2026",
+      category: "AI & Full Stack",
+      title: "Lectura AI: Academic Copilot & Cognitive Learning Engine",
+      text: "A cognitive learning copilot built with Next.js 16, TypeScript, Tailwind CSS, GSAP, and Google Gemini AI. Deconstructs dense lecture slides into 15-minute bite-sized modules, predicts tricky exam traps from a professor's mindset, generates Pareto 80/20 cram schedules, and explains complex theories via the Feynman Technique.",
+      stack: ["Next.js 16", "React 18", "TypeScript", "Tailwind CSS", "GSAP", "Google Gemini AI", "Zod", "REST APIs"],
+      image: "assets/projects/lectura-ai.png",
+      demo: "https://lectura-ai.vercel.app",
+      repo: "https://github.com/syubidin/lectura-ai",
+      caseStudy: {
+        role: "Lead Full Stack & AI Prompt Architect",
+        timeline: "Nov 2026",
+        overview: "Lectura AI is a modern academic copilot and cognitive learning engine built to eliminate student cognitive overload, exam trap pitfalls, and late-night cram panics through evidence-based learning methodologies.",
+        challenges: [
+          "Parsing and structuring messy, unstructured, and diverse lecture notes without losing crucial academic semantics.",
+          "Preventing runtime crashes caused by upstream LLM rate limits, network timeouts, or sudden API failures during live demos.",
+          "Preventing cognitive overload through the UI: designing a minimalist, mobile-friendly interface with zero visual clutter.",
+          "Enforcing strict output data integrity and type safety across all 4 distinct learning instruments."
+        ],
+        solutions: [
+          "Architected Google Gemini 3 Flash REST integration with strict JSON MIME response enforcement and Zod runtime schema validation.",
+          "Engineered a resilient Graceful Fallback Mode providing curated high-yield academic outputs when offline or during API quota limits.",
+          "Formulated prompts grounded in cognitive science: Miller's Chunking Theory (15-min modules), Error-Driven Learning (exam trap prediction), and Pareto 80/20 time matrices.",
+          "Implemented the Academic App Color Palette (Chambray, Bermuda Gray, Pigeon Post, Ronchi, Zest) with Space Grotesk typography, lightweight GSAP transitions, and responsive Segmented Control navigation.",
+          "Built full Markdown (.md) export and clipboard synchronization for seamless workflows into Notion and Obsidian."
+        ],
+        highlights: [
+          "Sub-2s end-to-end response latency with edge route handlers and multi-model failover",
+          "100% strict TypeScript type coverage and zero client-side layout shifts",
+          "Graceful offline demo capability guaranteeing uninterrupted presentation reliability",
+          "Windows 1-click launcher automation (start-app.bat) for zero-friction client onboarding"
+        ]
+      }
+    },
+    {
+      year: "2026",
       category: "Front-End",
       title: "PT Intimart Elang Perkasa Company Profile",
       text: "A corporate website built for PT Intimart Elang Perkasa (I.W. Group). Features responsive modern layouts, real-time product catalog filtering across FMCG and fashion lines, interactive count-up statistics, partner registration workflows, and WhatsApp inquiry routing.",
@@ -159,10 +193,10 @@ const SITE = {
   ],
 
   kit: {
-    "Front of house": ["HTML", "CSS", "JavaScript", "Bootstrap", "Tailwind", "React", "Flutter", "Responsive design", "SDLC"],
+    "Front of house": ["HTML", "CSS", "JavaScript", "TypeScript", "Bootstrap", "Tailwind", "React", "Next.js", "Flutter", "Responsive design", "SDLC"],
     "Back of house": ["Java 17", "Spring Boot 3", "PHP", "CodeIgniter", "Laravel", "Python", "C++", "Node.js basics"],
-    "Data and APIs": ["PostgreSQL", "MySQL", "Flyway", "Supabase", "Double-Entry Ledger", "Schema design", "REST APIs"],
-    "Workshop": ["Git", "Docker", "JaCoCo", "Postman", "Swagger / OpenAPI", "Figma", "Linux basics", "AI-assisted development"]
+    "Data and APIs": ["PostgreSQL", "MySQL", "Flyway", "Supabase", "Double-Entry Ledger", "Schema design", "REST APIs", "Google Gemini AI"],
+    "Workshop": ["Git", "Docker", "JaCoCo", "Postman", "Swagger / OpenAPI", "Figma", "Linux basics", "GSAP", "AI-assisted development"]
   },
 
   certs: [
