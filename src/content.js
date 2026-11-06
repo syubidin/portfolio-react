@@ -154,8 +154,8 @@ const SITE = {
       }
     },
     {
-      year: "Independent",
-      category: "Mobile",
+      year: "2026",
+      category: "Independent",
       title: "Folia (Coming Soon)",
       text: "Upcoming mobile application built with cross-platform Flutter architecture, dynamic state management, and cloud backend integration.",
       stack: ["Flutter", "Dart", "Supabase", "REST APIs"],
