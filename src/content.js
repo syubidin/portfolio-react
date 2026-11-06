@@ -24,7 +24,7 @@ const SITE = {
   projects: [
     {
       year: "2026",
-      category: "Backend & Systems",
+      category: "Independent",
       title: "CERMAT: Core-Banking Ledger Engine",
       text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
       stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
@@ -59,12 +59,12 @@ const SITE = {
     },
     {
       year: "2026",
-      category: "AI & Full Stack",
+      category: "Freelance",
       title: "Lectura AI: Academic Copilot & Cognitive Learning Engine",
       text: "A cognitive learning copilot built with Next.js 16, TypeScript, Tailwind CSS, GSAP, and Google Gemini AI. Deconstructs dense lecture slides into 15-minute bite-sized modules, predicts tricky exam traps from a professor's mindset, generates Pareto 80/20 cram schedules, and explains complex theories via the Feynman Technique.",
       stack: ["Next.js 16", "React 18", "TypeScript", "Tailwind CSS", "GSAP", "Google Gemini AI", "Zod", "REST APIs"],
       image: "assets/projects/lectura-ai.png",
-      demo: "https://lectura-ai.vercel.app",
+      demo: "https://lectura-ai-demo.vercel.app",
       repo: "https://github.com/syubidin/lectura-ai",
       caseStudy: {
         role: "Lead Full Stack & AI Prompt Architect",
@@ -93,7 +93,7 @@ const SITE = {
     },
     {
       year: "2026",
-      category: "Front-End",
+      category: "Freelance",
       title: "PT Intimart Elang Perkasa Company Profile",
       text: "A corporate website built for PT Intimart Elang Perkasa (I.W. Group). Features responsive modern layouts, real-time product catalog filtering across FMCG and fashion lines, interactive count-up statistics, partner registration workflows, and WhatsApp inquiry routing.",
       stack: ["React 18", "Vite 6", "anime.js", "React Router", "Vanilla CSS", "Responsive Design", "Vercel"],
@@ -124,7 +124,7 @@ const SITE = {
     },
     {
       year: "2026",
-      category: "Full Stack",
+      category: "Academic",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
       stack: ["PHP", "Tailwind", "CodeIgniter 3", "MySQL", "Responsive design", "HTML", "CSS", "JavaScript"],
@@ -154,14 +154,14 @@ const SITE = {
       }
     },
     {
-      year: "Soon",
+      year: "Independent",
       category: "Mobile",
-      title: "PlantCare & EcoMobile (Coming Soon)",
+      title: "Folia (Coming Soon)",
       text: "Upcoming mobile application built with cross-platform Flutter architecture, dynamic state management, and cloud backend integration.",
       stack: ["Flutter", "Dart", "Supabase", "REST APIs"],
       image: "assets/projects/project-two.png",
       demo: "",
-      repo: "https://github.com/syubidin/PlantCare"
+      repo: "https://github.com/syubidin/folia"
     }
   ],
 
