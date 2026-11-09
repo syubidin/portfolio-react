@@ -7,11 +7,16 @@ export default function Trail() {
     <Section id="trail" title="Trail">
       {(S.trail || []).map((t) => (
         <Reveal as="article" className="row" key={t.when + t.title}>
-          <div className="w">{t.when}<small>{t.kind}</small></div>
+          <div className="w">
+            {t.when}
+            <small>{t.kind}</small>
+          </div>
           <div>
             <h3>{t.title}</h3>
             <em>{t.place}</em>
-            <ul>{(t.points || []).map((x) => <li key={x}>{x}</li>)}</ul>
+            <ul>
+              {(t.points || []).map((x) => <li key={x}>{x}</li>)}
+            </ul>
           </div>
         </Reveal>
       ))}

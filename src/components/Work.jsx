@@ -1,39 +1,233 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import S from '../content.js';
 import Section from './Section.jsx';
 import Reveal from './Reveal.jsx';
+import SkillIcon from './SkillIcon.jsx';
 
 const Btn = ({ label, href }) =>
   href
-    ? <a className="bt" href={href} target="_blank" rel="noopener">{label}</a>
+    ? <a className="bt" href={href} target="_blank" rel="noopener noreferrer">{label}</a>
     : <span className="bt off">{label} (soon)</span>;
 
+/**
+ * ProjectMedia handles dynamic video/gif playback for project thumbnails and modal previews.
+ * - Plays video/gif when first displayed in view.
+ * - Switches to static image when playback finishes (onEnded).
+ * - Restarts from the beginning when hover is released (onMouseLeave).
+ * - Allows clicking thumbnail to open image lightbox zoom.
+ * - Zero layout shift with exact 16/10 matching frame.
+ */
+function ProjectMedia({ project, isModal = false, onZoom }) {
+  const [hasEnded, setHasEnded] = useState(false);
+  const [mediaError, setMediaError] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
+
+  const previewSrc = project.preview;
+  const isVideo = previewSrc && !previewSrc.endsWith('.gif');
+  const isGif = previewSrc && previewSrc.endsWith('.gif');
+
+  // Trigger autoplay only when element scrolls into view (or immediately in modal)
+  useEffect(() => {
+    if (isModal) {
+      setInView(true);
+      return;
+    }
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isModal]);
+
+  // Autoplay video or run GIF duration when inView becomes true
+  useEffect(() => {
+    if (!inView || !previewSrc || mediaError) return;
+
+    if (isVideo && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      const playPromise = videoRef.current.play();
+      if (playPromise) {
+        playPromise.catch(() => {
+          // If browser blocked autoplay policy, gracefully show static image
+          setHasEnded(true);
+        });
+      }
+    } else if (isGif) {
+      const timer = setTimeout(() => {
+        setHasEnded(true);
+      }, project.previewDuration || 4500);
+      return () => clearTimeout(timer);
+    }
+  }, [inView, previewSrc, mediaError, isVideo, isGif, project.previewDuration]);
+
+  // When hover is released: restart video/gif from beginning
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (!previewSrc || mediaError) return;
+    if (isVideo && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      const playPromise = videoRef.current.play();
+      if (playPromise) {
+        playPromise.then(() => {
+          setHasEnded(false);
+        }).catch(() => {});
+      }
+    } else if (isGif) {
+      setHasEnded(false);
+      setTimeout(() => {
+        setHasEnded(true);
+      }, project.previewDuration || 4500);
+    }
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleVideoEnded = () => {
+    setHasEnded(true);
+  };
+
+  const handleReplay = (e) => {
+    e.stopPropagation();
+    if (!previewSrc || mediaError) return;
+    if (isVideo && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().then(() => {
+        setHasEnded(false);
+      }).catch(() => {});
+    } else if (isGif) {
+      setHasEnded(false);
+      setTimeout(() => {
+        setHasEnded(true);
+      }, project.previewDuration || 4500);
+    }
+  };
+
+  const handleThumbnailClick = () => {
+    if (onZoom && project.image) {
+      onZoom({ src: project.image, alt: `Screenshot of ${project.title}` });
+    }
+  };
+
+  // Video is visible if preview exists, has not ended, and no error
+  const showVideo = Boolean(previewSrc && isVideo && !hasEnded && !mediaError);
+  const showGif = Boolean(previewSrc && isGif && !hasEnded && !mediaError);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`${isModal ? 'modal-preview' : 'shot'}${mediaError ? ' no' : ''}`}
+      onMouseEnter={!isModal ? handleMouseEnter : undefined}
+      onMouseLeave={!isModal ? handleMouseLeave : undefined}
+      onClick={handleThumbnailClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleThumbnailClick();
+        }
+      }}
+      aria-label={`Inspect screenshot of ${project.title}`}
+      title="Click to view enlarged screenshot"
+    >
+      {/* Static Image (shown when video ended or as fallback) */}
+      <img
+        src={project.image}
+        alt={`Screenshot of ${project.title}`}
+        loading={isModal ? 'eager' : 'lazy'}
+        decoding="async"
+        onError={() => setMediaError(true)}
+        className="project-static-img"
+        style={{
+          opacity: showVideo || showGif ? 0 : 1,
+          transition: 'opacity 0.35s ease-in-out'
+        }}
+      />
+
+      {/* Video Preview */}
+      {previewSrc && isVideo && !mediaError && (
+        <video
+          ref={videoRef}
+          src={previewSrc}
+          muted
+          playsInline
+          preload="metadata"
+          onEnded={handleVideoEnded}
+          onError={() => setMediaError(true)}
+          className="project-video-preview"
+          style={{
+            opacity: showVideo ? 1 : 0,
+            pointerEvents: 'none',
+            transition: 'opacity 0.35s ease-in-out'
+          }}
+        />
+      )}
+
+      {/* GIF Preview */}
+      {previewSrc && isGif && !mediaError && showGif && (
+        <img
+          src={previewSrc}
+          alt={`Preview of ${project.title}`}
+          onError={() => setMediaError(true)}
+          className="project-gif-preview"
+          style={{
+            opacity: showGif ? 1 : 0,
+            pointerEvents: 'none',
+            transition: 'opacity 0.35s ease-in-out'
+          }}
+        />
+      )}
+
+      {/* Replay or Zoom indicator */}
+      {!isModal && (
+        <span className="shot-hint" aria-hidden="true">
+          {showVideo || showGif ? '▶ Video playing • 🔍 Zoom' : '🔍 Zoom photo'}
+        </span>
+      )}
+
+      {isModal && hasEnded && previewSrc && !mediaError && (
+        <button
+          type="button"
+          className="preview-replay-btn"
+          onClick={handleReplay}
+          aria-label="Replay preview video"
+        >
+          ↺ Replay preview
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Project({ p, onOpenCaseStudy, onZoom }) {
-  const [missing, setMissing] = useState(false);
   return (
     <Reveal as="article" className="pl">
-      <div
-        className={`shot${missing ? ' no' : ''}`}
-        onClick={() => !missing && p.image && onZoom({ src: p.image, alt: `Screenshot of ${p.title}` })}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if ((e.key === 'Enter' || e.key === ' ') && !missing && p.image) {
-            e.preventDefault();
-            onZoom({ src: p.image, alt: `Screenshot of ${p.title}` });
-          }
-        }}
-        aria-label={`Inspect screenshot of ${p.title}`}
-        title={!missing ? "Click to view enlarged screenshot" : undefined}
-      >
-        <img src={p.image} alt={`Screenshot of ${p.title}`} loading="lazy" decoding="async" onError={() => setMissing(true)} />
-        {!missing && <span className="shot-hint" aria-hidden="true">🔍 Zoom</span>}
-      </div>
+      <ProjectMedia project={p} onZoom={onZoom} />
       <div>
         <span className="yr">{p.year}{p.category ? ` • ${p.category}` : ''}</span>
         <h3>{p.title}</h3>
         <p>{p.text}</p>
-        <div className="st">{(p.stack || []).map((s) => <b key={s}>{s}</b>)}</div>
+        <div className="st">
+          {(p.stack || []).map((s) => (
+            <b key={s}>
+              <SkillIcon name={s} />
+              <span>{s}</span>
+            </b>
+          ))}
+        </div>
         <div className="bts">
           <Btn label="Live demo" href={p.demo} />
           <Btn label="Source code" href={p.repo} />
@@ -78,7 +272,7 @@ export default function Work() {
 
   return (
     <Section id="work" title="Works">
-      {/* Category Filter Badges */}
+      {/* Category Filter Bar */}
       <div className="filter-bar" role="tablist" aria-label="Project category filter">
         {categories.map((cat) => {
           const count = cat === 'All'
@@ -112,7 +306,7 @@ export default function Work() {
         ))}
       </div>
 
-      {/* Architecture & Case Study Modal */}
+      {/* Architecture & Details Modal */}
       {modalProject && (
         <div
           className="modal-backdrop"
@@ -143,6 +337,14 @@ export default function Work() {
             </div>
 
             <div className="modal-body">
+              {/* Media Preview inside Modal: Displays video/gif, transitions to static image when finished, matching 16/10 frame */}
+              <ProjectMedia
+                project={modalProject}
+                isModal={true}
+                onZoom={setLightboxImg}
+              />
+
+              {/* SEKALIGUS: Architecture & Details Info Sections */}
               <div className="modal-sec">
                 <h4>System Overview</h4>
                 <p>{modalProject.caseStudy?.overview || modalProject.text}</p>
@@ -178,7 +380,12 @@ export default function Work() {
               <div className="modal-sec">
                 <h4>Technical Stack</h4>
                 <div className="st">
-                  {(modalProject.stack || []).map((s) => <b key={s}>{s}</b>)}
+                  {(modalProject.stack || []).map((s) => (
+                    <b key={s}>
+                      <SkillIcon name={s} />
+                      <span>{s}</span>
+                    </b>
+                  ))}
                 </div>
               </div>
 

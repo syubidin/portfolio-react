@@ -2,6 +2,7 @@ import { useState } from 'react';
 import S from '../content.js';
 import Section from './Section.jsx';
 import Reveal from './Reveal.jsx';
+import SkillIcon from './SkillIcon.jsx';
 
 export default function Kit() {
   const [activeSkill, setActiveSkill] = useState(null);
@@ -15,7 +16,7 @@ export default function Kit() {
 
   return (
     <Section id="kit" title="Kit">
-      {/* Skill Grid */}
+      {/* Skill Grid with aesthetic theme-matched monochrome SVG icons */}
       <div className="kit">
         {Object.entries(S.kit || {}).map(([group, items]) => (
           <Reveal key={group} kids="b">
@@ -39,7 +40,8 @@ export default function Kit() {
                       }
                     }}
                   >
-                    {s}
+                    <SkillIcon name={s} />
+                    <span>{s}</span>
                     {usedIn.length > 0 && <span className="kit-dot" aria-hidden="true">•</span>}
                   </b>
                 );
@@ -66,7 +68,7 @@ export default function Kit() {
         </div>
       )}
 
-      {/* Certifications with Verified Credentials */}
+      {/* Certifications with Direct Certificate Document Links */}
       <Reveal className="cr">
         <div className="cert-header">
           <h3>Certifications & Credentials</h3>
@@ -78,6 +80,7 @@ export default function Kit() {
             const title = isObj ? c.name : c;
             const issuer = isObj ? c.issuer : null;
             const id = isObj ? c.id : null;
+            const docLink = isObj ? (c.doc || c.link) : null;
             return (
               <li key={i} className="cert-card">
                 <div className="cert-main">
@@ -86,6 +89,17 @@ export default function Kit() {
                 </div>
                 {issuer && <small className="cert-issuer">{issuer}</small>}
                 {id && <code className="cert-code">{id}</code>}
+                {docLink && (
+                  <a
+                    href={docLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cert-doc-link"
+                    aria-label={`View certificate document for ${title}`}
+                  >
+                    View certificate document ↗
+                  </a>
+                )}
               </li>
             );
           })}

@@ -29,6 +29,7 @@ const SITE = {
       text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
       stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
       image: "assets/projects/cermat.png",
+      preview: "assets/projects/cermat.mp4",
       demo: "https://cermat-production.up.railway.app/swagger-ui.html",
       repo: "https://github.com/syubidin/cermat",
       caseStudy: {
@@ -64,6 +65,7 @@ const SITE = {
       text: "A cognitive learning copilot built with Next.js 16, TypeScript, Tailwind CSS, GSAP, and Google Gemini AI. Deconstructs dense lecture slides into 15-minute bite-sized modules, predicts tricky exam traps from a professor's mindset, generates Pareto 80/20 cram schedules, and explains complex theories via the Feynman Technique.",
       stack: ["Next.js 16", "React 18", "TypeScript", "Tailwind CSS", "GSAP", "Google Gemini AI", "Zod", "REST APIs"],
       image: "assets/projects/lectura-ai.png",
+      preview: "assets/projects/lectura-ai.mp4",
       demo: "https://lectura-ai-demo.vercel.app",
       repo: "https://github.com/syubidin/lectura-ai",
       caseStudy: {
@@ -98,6 +100,7 @@ const SITE = {
       text: "A corporate website built for PT Intimart Elang Perkasa (I.W. Group). Features responsive modern layouts, real-time product catalog filtering across FMCG and fashion lines, interactive count-up statistics, partner registration workflows, and WhatsApp inquiry routing.",
       stack: ["React 18", "Vite 6", "anime.js", "React Router", "Vanilla CSS", "Responsive Design", "Vercel"],
       image: "assets/projects/intimart.png",
+      preview: "assets/projects/intimart.mp4",
       demo: "https://intimart.vercel.app",
       repo: "https://github.com/syubidin/intimart-react",
       caseStudy: {
@@ -129,6 +132,7 @@ const SITE = {
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
       stack: ["PHP", "Tailwind", "CodeIgniter 3", "MySQL", "Responsive design", "HTML", "CSS", "JavaScript"],
       image: "assets/projects/elp-crm.png",
+      preview: "assets/projects/elp-crm.mp4",
       demo: "https://syubidin-crm.infinityfreeapp.com",
       repo: "https://github.com/syubidin/elp-crm",
       caseStudy: {
@@ -160,6 +164,7 @@ const SITE = {
       text: "Upcoming mobile application built with cross-platform Flutter architecture, dynamic state management, and cloud backend integration.",
       stack: ["Flutter", "Dart", "Supabase", "REST APIs"],
       image: "assets/projects/project-two.png",
+      preview: "assets/projects/folia.mp4",
       demo: "",
       repo: "https://github.com/syubidin/folia"
     }
@@ -200,14 +205,14 @@ const SITE = {
   },
 
   certs: [
-    { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023" },
-    { name: "TOEIC Certification (945)", issuer: "Educational Testing Service", year: "2026", id: "1992618" },
-    { name: "Junior Web Developer", issuer: "BNSP", year: "2023", id: "620902513300467052023" },
-    { name: "Database Administrator", issuer: "BNSP", year: "2025", id: "620903122300010592025" },
-    { name: "Application Programmer", issuer: "BNSP", year: "2023", id: "620102514200009222023" },
-    { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2024", id: "620903122300030792024" },
-    { name: "Project Based Learning Competence", issuer: "PT Bangun Karya Abadi", year: "2023", id: "422.3/308/SMKN.2-Cadisdik Will.III" },
-    { name: "Junior Web Developer", issuer: "PT Telkom Cipta Prima", year: "2022", id: "A2202703" }
+    { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023", doc: "assets/certs/associate-data-scientist.pdf" },
+    { name: "TOEIC Certification (945)", issuer: "Educational Testing Service", year: "2026", id: "1992618", doc: "assets/certs/toeic.pdf" },
+    { name: "Junior Web Developer", issuer: "BNSP", year: "2023", id: "620902513300467052023", doc: "assets/certs/bnsp-junior-web-dev.pdf" },
+    { name: "Database Administrator", issuer: "BNSP", year: "2025", id: "620903122300010592025", doc: "assets/certs/bnsp-dba.pdf" },
+    { name: "Application Programmer", issuer: "BNSP", year: "2023", id: "620102514200009222023", doc: "assets/certs/bnsp-application-programmer.pdf" },
+    { name: "Tenaga Operasi Komputer", issuer: "BNSP", year: "2024", id: "620903122300030792024", doc: "assets/certs/bnsp-tok.pdf" },
+    { name: "Project Based Learning Competence", issuer: "PT Bangun Karya Abadi", year: "2023", id: "422.3/308/SMKN.2-Cadisdik Will.III", doc: "assets/certs/pbl-bka.pdf" },
+    { name: "Junior Web Developer", issuer: "PT Telkom Cipta Prima", year: "2022", id: "A2202703", doc: "assets/certs/telkom-junior-web-dev.pdf" }
   ],
 
   email: "syubyattala806@gmail.com",
