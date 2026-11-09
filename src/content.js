@@ -163,8 +163,8 @@ const SITE = {
       title: "Folia (Coming Soon)",
       text: "Upcoming mobile application built with cross-platform Flutter architecture, dynamic state management, and cloud backend integration.",
       stack: ["Flutter", "Dart", "Supabase", "REST APIs"],
-      image: "assets/projects/project-two.png",
-      preview: "assets/projects/folia.mp4",
+      image: "",
+      preview: "",
       demo: "",
       repo: "https://github.com/syubidin/folia"
     }

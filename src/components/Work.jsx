@@ -20,6 +20,7 @@ const Btn = ({ label, href }) =>
 function ProjectMedia({ project, isModal = false, onZoom }) {
   const [hasEnded, setHasEnded] = useState(false);
   const [mediaError, setMediaError] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const [inView, setInView] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
@@ -28,6 +29,9 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
   const previewSrc = project.preview;
   const isVideo = previewSrc && !previewSrc.endsWith('.gif');
   const isGif = previewSrc && previewSrc.endsWith('.gif');
+
+  // Check if project has no valid image or video preview
+  const hasNoImage = (!project.image || imgError) && (!previewSrc || mediaError);
 
   // Trigger autoplay only when element scrolls into view (or immediately in modal)
   useEffect(() => {
@@ -52,7 +56,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
 
   // Autoplay video or run GIF duration when inView becomes true
   useEffect(() => {
-    if (!inView || !previewSrc || mediaError) return;
+    if (!inView || !previewSrc || mediaError || hasNoImage) return;
 
     if (isVideo && videoRef.current) {
       videoRef.current.currentTime = 0;
@@ -69,12 +73,12 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       }, project.previewDuration || 4500);
       return () => clearTimeout(timer);
     }
-  }, [inView, previewSrc, mediaError, isVideo, isGif, project.previewDuration]);
+  }, [inView, previewSrc, mediaError, isVideo, isGif, project.previewDuration, hasNoImage]);
 
   // When hover is released: restart video/gif from beginning
   const handleMouseLeave = () => {
     setIsHovered(false);
-    if (!previewSrc || mediaError) return;
+    if (!previewSrc || mediaError || hasNoImage) return;
     if (isVideo && videoRef.current) {
       videoRef.current.currentTime = 0;
       const playPromise = videoRef.current.play();
@@ -101,7 +105,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
 
   const handleReplay = (e) => {
     e.stopPropagation();
-    if (!previewSrc || mediaError) return;
+    if (!previewSrc || mediaError || hasNoImage) return;
     if (isVideo && videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().then(() => {
@@ -116,49 +120,51 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
   };
 
   const handleThumbnailClick = () => {
-    if (onZoom && project.image) {
+    if (!hasNoImage && onZoom && project.image) {
       onZoom({ src: project.image, alt: `Screenshot of ${project.title}` });
     }
   };
 
   // Video is visible if preview exists, has not ended, and no error
-  const showVideo = Boolean(previewSrc && isVideo && !hasEnded && !mediaError);
-  const showGif = Boolean(previewSrc && isGif && !hasEnded && !mediaError);
+  const showVideo = Boolean(previewSrc && isVideo && !hasEnded && !mediaError && !hasNoImage);
+  const showGif = Boolean(previewSrc && isGif && !hasEnded && !mediaError && !hasNoImage);
 
   return (
     <div
       ref={containerRef}
-      className={`${isModal ? 'modal-preview' : 'shot'}${mediaError ? ' no' : ''}`}
-      onMouseEnter={!isModal ? handleMouseEnter : undefined}
-      onMouseLeave={!isModal ? handleMouseLeave : undefined}
-      onClick={handleThumbnailClick}
-      role="button"
-      tabIndex={0}
+      className={`${isModal ? 'modal-preview' : 'shot'}${hasNoImage ? ' no' : ''}`}
+      onMouseEnter={!isModal && !hasNoImage ? handleMouseEnter : undefined}
+      onMouseLeave={!isModal && !hasNoImage ? handleMouseLeave : undefined}
+      onClick={!hasNoImage ? handleThumbnailClick : undefined}
+      role={!hasNoImage ? "button" : undefined}
+      tabIndex={!hasNoImage ? 0 : -1}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (!hasNoImage && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault();
           handleThumbnailClick();
         }
       }}
-      aria-label={`Inspect screenshot of ${project.title}`}
-      title="Click to view enlarged screenshot"
+      aria-label={!hasNoImage ? `Inspect screenshot of ${project.title}` : undefined}
+      title={!hasNoImage ? "Click to view enlarged screenshot" : undefined}
     >
       {/* Static Image (shown when video ended or as fallback) */}
-      <img
-        src={project.image}
-        alt={`Screenshot of ${project.title}`}
-        loading={isModal ? 'eager' : 'lazy'}
-        decoding="async"
-        onError={() => setMediaError(true)}
-        className="project-static-img"
-        style={{
-          opacity: showVideo || showGif ? 0 : 1,
-          transition: 'opacity 0.35s ease-in-out'
-        }}
-      />
+      {project.image && !hasNoImage && (
+        <img
+          src={project.image}
+          alt={`Screenshot of ${project.title}`}
+          loading={isModal ? 'eager' : 'lazy'}
+          decoding="async"
+          onError={() => setImgError(true)}
+          className="project-static-img"
+          style={{
+            opacity: showVideo || showGif ? 0 : 1,
+            transition: 'opacity 0.35s ease-in-out'
+          }}
+        />
+      )}
 
       {/* Video Preview */}
-      {previewSrc && isVideo && !mediaError && (
+      {previewSrc && isVideo && !mediaError && !hasNoImage && (
         <video
           ref={videoRef}
           src={previewSrc}
@@ -177,7 +183,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       )}
 
       {/* GIF Preview */}
-      {previewSrc && isGif && !mediaError && showGif && (
+      {previewSrc && isGif && !mediaError && showGif && !hasNoImage && (
         <img
           src={previewSrc}
           alt={`Preview of ${project.title}`}
@@ -192,13 +198,13 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       )}
 
       {/* Replay or Zoom indicator */}
-      {!isModal && (
+      {!isModal && !hasNoImage && (
         <span className="shot-hint" aria-hidden="true">
           {showVideo || showGif ? '▶ Video playing • Zoom' : 'Zoom'}
         </span>
       )}
 
-      {isModal && hasEnded && previewSrc && !mediaError && (
+      {isModal && hasEnded && previewSrc && !mediaError && !hasNoImage && (
         <button
           type="button"
           className="preview-replay-btn"
