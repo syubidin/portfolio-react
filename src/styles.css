@@ -93,8 +93,10 @@ footer{padding:1.6rem 5vw;font-weight:800;font-size:.85rem;display:grid;gap:.6re
 
 /* Zoom Hint on Screenshot */
 .shot{cursor:pointer}
-.shot-hint{position:absolute;right:8px;bottom:8px;background:var(--fg);color:var(--bg);padding:4px 8px;font-size:.75rem;font-weight:900;opacity:0;transition:opacity .2s;z-index:2}
-.shot:hover .shot-hint{opacity:1}
+.shot-hint{position:absolute;right:8px;bottom:8px;background:var(--fg);color:var(--bg);padding:5px 9px;font-size:.75rem;font-weight:900;opacity:0;transition:opacity .2s;z-index:2;display:inline-flex;align-items:center;gap:5px;line-height:1}
+.shot-hint svg{display:inline-block;vertical-align:middle;flex-shrink:0}
+.hint-sep{opacity:.6;margin:0 1px}
+.shot:hover:not(.no) .shot-hint{opacity:1}
 
 /* Case Study & Details Button */
 .bt-case{border-color:var(--ac);color:var(--ac);cursor:pointer}
@@ -117,7 +119,8 @@ footer{padding:1.6rem 5vw;font-weight:800;font-size:.85rem;display:grid;gap:.6re
 /* Architecture & Details Modal Video Preview Frame */
 .modal-preview{position:relative;width:100%;aspect-ratio:16/9;border:3px solid var(--fg);box-shadow:8px 8px 0 var(--ac);overflow:hidden;margin-bottom:1.5rem;background:#050505;cursor:pointer}
 .modal-preview img,.modal-preview video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;display:block}
-.preview-replay-btn{position:absolute;bottom:10px;right:10px;z-index:4;background:var(--fg);color:var(--bg);border:2px solid var(--bg);font:inherit;font-size:.75rem;font-weight:900;padding:6px 12px;cursor:pointer;transition:all .2s}
+.preview-replay-btn{position:absolute;bottom:10px;right:10px;z-index:4;background:var(--fg);color:var(--bg);border:2px solid var(--bg);font:inherit;font-size:.75rem;font-weight:900;padding:6px 12px;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;line-height:1}
+.preview-replay-btn svg{display:inline-block;vertical-align:middle;flex-shrink:0}
 .preview-replay-btn:hover{background:var(--ac);color:var(--on);border-color:var(--on)}
 
 /* Lightbox */
