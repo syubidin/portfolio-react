@@ -81,7 +81,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       if (playPromise) {
         playPromise.then(() => {
           setHasEnded(false);
-        }).catch(() => {});
+        }).catch(() => { });
       }
     } else if (isGif) {
       setHasEnded(false);
@@ -106,7 +106,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().then(() => {
         setHasEnded(false);
-      }).catch(() => {});
+      }).catch(() => { });
     } else if (isGif) {
       setHasEnded(false);
       setTimeout(() => {
@@ -194,7 +194,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
       {/* Replay or Zoom indicator */}
       {!isModal && (
         <span className="shot-hint" aria-hidden="true">
-          {showVideo || showGif ? '▶ Video playing • 🔍 Zoom' : '🔍 Zoom photo'}
+          {showVideo || showGif ? '▶ Video playing • Zoom' : 'Zoom'}
         </span>
       )}
 
