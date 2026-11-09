@@ -4,12 +4,6 @@ import Section from './Section.jsx';
 import Reveal from './Reveal.jsx';
 import SkillIcon from './SkillIcon.jsx';
 
-const PlayIcon = () => (
-  <svg className="hint-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
-    <path fill="currentColor" d="M8 5.14v13.72a1 1 0 001.5.86l11-6.86a1 1 0 000-1.72l-11-6.86A1 1 0 008 5.14z" />
-  </svg>
-);
-
 const ZoomIcon = () => (
   <svg className="hint-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
     <path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M19 11a8 8 0 11-16 0 8 8 0 0116 0z" />
@@ -221,23 +215,11 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
         />
       )}
 
-      {/* Replay or Zoom indicator with crisp SVG icons */}
+      {/* Zoom indicator with crisp SVG icon */}
       {!isModal && !hasNoImage && (
         <span className="shot-hint" aria-hidden="true">
-          {showVideo || showGif ? (
-            <>
-              <PlayIcon />
-              <span>Video playing</span>
-              <span className="hint-sep">•</span>
-              <ZoomIcon />
-              <span>Zoom</span>
-            </>
-          ) : (
-            <>
-              <ZoomIcon />
-              <span>Zoom photo</span>
-            </>
-          )}
+          <ZoomIcon />
+          <span>Zoom</span>
         </span>
       )}
 
