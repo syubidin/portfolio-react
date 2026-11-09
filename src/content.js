@@ -8,8 +8,8 @@ const SITE = {
   photo: "assets/face.png",
   about: [
     "I like things that hold weight: clean schemas, bulletproof transaction invariants, and systems people can lean on.",
-    "I engineer high-integrity backend systems in Java 17 & Spring Boot (double-entry core banking ledgers, deterministic concurrency control, and sharded balances), build full stack web apps with PHP & Laravel, and configured enterprise accounting systems for real clients.",
-    "Right now I’m looking for an entry-level Backend, Full Stack, or Software Engineer role where reliability and architectural rigor matter."
+    "My engineering work spans mission-critical backend engines in Java 17 & Spring Boot (zero-deadlock core-banking ledgers with 16 balance shards), modern AI-augmented full stack copilots in Next.js 16, TypeScript & Google Gemini AI, interactive corporate web platforms in React 18 & Vite, and data-driven CRM systems in PHP & CodeIgniter.",
+    "From hardening database consistency to deploying client-facing web solutions and building cross-platform mobile apps with Flutter, I build software where reliability, architectural rigor, and practical impact matter. Right now, I’m looking for an entry-level Backend, Full Stack, or Software Engineer role."
   ],
   facts: [
     ["Based in", "Bekasi, Indonesia"],
