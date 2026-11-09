@@ -95,7 +95,15 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
     }
   }, [inView, previewSrc, mediaError, isVideo, isGif, project.previewDuration, hasNoImage]);
 
-  // When hover is released: restart video/gif from beginning
+  // When hover starts: switch to static image
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (isVideo && videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  // When cursor moves away: restart video/gif from the beginning
   const handleMouseLeave = () => {
     setIsHovered(false);
     if (!previewSrc || mediaError || hasNoImage) return;
@@ -113,10 +121,6 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
         setHasEnded(true);
       }, project.previewDuration || 4500);
     }
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
   };
 
   const handleVideoEnded = () => {
@@ -145,9 +149,9 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
     }
   };
 
-  // Video is visible if preview exists, has not ended, and no error
-  const showVideo = Boolean(previewSrc && isVideo && !hasEnded && !mediaError && !hasNoImage);
-  const showGif = Boolean(previewSrc && isGif && !hasEnded && !mediaError && !hasNoImage);
+  // Video is visible if preview exists, has not ended, not hovered, and no error
+  const showVideo = Boolean(previewSrc && isVideo && !hasEnded && !mediaError && !hasNoImage && !isHovered);
+  const showGif = Boolean(previewSrc && isGif && !hasEnded && !mediaError && !hasNoImage && !isHovered);
 
   return (
     <div
