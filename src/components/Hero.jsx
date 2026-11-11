@@ -1,15 +1,19 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import S from '../content.js';
 import Split from './Split.jsx';
 import { createTimeline, stagger, reduced } from '../lib/motion.js';
 
-export default function Hero() {
+export default function Hero({ ready = false }) {
   const root = useRef(null);
+  const tlRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (!ready) return;
     if (reduced()) return;
+    if (!root.current) return;
     const q = (s) => root.current.querySelectorAll(s);
     const tl = createTimeline({ defaults: { ease: 'outExpo' } });
+    tlRef.current = tl;
     tl.add(q('.ci'), { scale: [0, 1], duration: 1300 }, 0)
       .add(q('.sl'), { translateX: ['-100%', '0%'], duration: 900 }, 0)
       .add(q('.hero p'), { opacity: [0, 1], translateY: [14, 0], duration: 700 }, 200)
@@ -17,8 +21,8 @@ export default function Hero() {
       .add(q('.tag'), { opacity: [0, 1], translateY: [24, 0], rotate: [-14, -3], duration: 800 }, 1100)
       .add(q('.hero-bts'), { opacity: [0, 1], translateY: [20, 0], duration: 700 }, 1200)
       .add(q('.mq'), { translateY: ['100%', '0%'], duration: 900 }, 900);
-    return () => tl.revert();
-  }, []);
+    return () => { tl.revert(); };
+  }, [ready]);
 
   return (
     <section className="hero" id="top" ref={root}>

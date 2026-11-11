@@ -14,7 +14,15 @@ export default function About() {
     <Section id="who" title="Who">
       <div className="ab">
         <div className={`fc${shown ? ' in' : ''}${missing ? ' no' : ''}`} ref={fc}>
-          <img src={S.photo} alt={`Portrait of ${S.name}`} width="440" height="550" decoding="async" onError={() => setMissing(true)} />
+          <img
+            src={S.photo}
+            alt={`Portrait of ${S.name}`}
+            width="440"
+            height="550"
+            decoding="async"
+            draggable={false}
+            onError={() => setMissing(true)}
+          />
         </div>
         <Reveal>
           <p className="lead">{S.about?.[0]}</p>

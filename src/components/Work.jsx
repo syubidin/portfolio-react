@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import S from '../content.js';
 import Section from './Section.jsx';
 import Reveal from './Reveal.jsx';
@@ -172,6 +173,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
           alt={`Screenshot of ${project.title}`}
           loading={isModal ? 'eager' : 'lazy'}
           decoding="async"
+          draggable={false}
           onError={() => setImgError(true)}
           className="project-static-img"
           style={{
@@ -188,7 +190,8 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
           src={previewSrc}
           muted
           playsInline
-          preload="metadata"
+          draggable={false}
+          preload={inView ? 'metadata' : 'none'}
           onEnded={handleVideoEnded}
           onError={() => setMediaError(true)}
           className="project-video-preview"
@@ -205,6 +208,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
         <img
           src={previewSrc}
           alt={`Preview of ${project.title}`}
+          draggable={false}
           onError={() => setMediaError(true)}
           className="project-gif-preview"
           style={{
@@ -262,9 +266,12 @@ function Project({ p, onOpenCaseStudy, onZoom }) {
               type="button"
               className="bt bt-case"
               onClick={() => onOpenCaseStudy(p)}
-              aria-label={`View architecture details for ${p.title}`}
+              aria-label={`View architecture details and case study for ${p.title}`}
             >
-              Architecture & Details ↗
+              <svg className="bt-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                <path fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+              <span>Architecture &amp; Details ↗</span>
             </button>
           )}
         </div>
@@ -283,6 +290,18 @@ export default function Work() {
   const filtered = activeCat === 'All'
     ? (S.projects || [])
     : (S.projects || []).filter((p) => p.category === activeCat);
+
+  // Lock body scroll when any modal is open
+  useEffect(() => {
+    if (modalProject || lightboxImg) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [modalProject, lightboxImg]);
 
   // Close modals on Escape key
   useEffect(() => {
@@ -333,7 +352,7 @@ export default function Work() {
       </div>
 
       {/* Architecture & Details Modal */}
-      {modalProject && (
+      {modalProject && createPortal(
         <div
           className="modal-backdrop"
           onClick={() => setModalProject(null)}
@@ -415,20 +434,31 @@ export default function Work() {
                 </div>
               </div>
 
-              <div className="bts modal-actions">
-                <Btn label="Open Live Demo ↗" href={modalProject.demo} />
-                <Btn label="View Source Code ↗" href={modalProject.repo} />
-                <button type="button" className="bt" onClick={() => setModalProject(null)}>
-                  Close
+              <div className="modal-actions">
+                <div className="modal-actions-links">
+                  <Btn label="Open Live Demo ↗" href={modalProject.demo} />
+                  <Btn label="View Source Code ↗" href={modalProject.repo} />
+                </div>
+                <button
+                  type="button"
+                  className="bt bt-modal-foot-close"
+                  onClick={() => setModalProject(null)}
+                  aria-label="Close architecture and details dialog"
+                >
+                  <svg className="bt-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                  <span>Close</span>
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Image Lightbox Modal */}
-      {lightboxImg && (
+      {lightboxImg && createPortal(
         <div
           className="modal-backdrop lightbox-backdrop"
           onClick={() => setLightboxImg(null)}
@@ -444,10 +474,11 @@ export default function Work() {
             >
               ✕
             </button>
-            <img src={lightboxImg.src} alt={lightboxImg.alt} />
+            <img src={lightboxImg.src} alt={lightboxImg.alt} draggable={false} />
             <p className="lightbox-caption">{lightboxImg.alt}</p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </Section>
   );
