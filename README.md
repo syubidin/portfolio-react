@@ -22,7 +22,7 @@
 
 <br/>
 
-> *"I like things that hold weight: clean schemas, clear requirements, and systems people can lean on."*  
+> *"When nothing goes right, go left."*  
 > **— Syuby Alwi Akbar Attala**
 
 <br/>
