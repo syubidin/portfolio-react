@@ -112,6 +112,12 @@ export default function Preloader({ onDone }) {
   useEffect(() => {
     if (phase !== 'reveal') return;
 
+    // Lock body scroll on mobile so the finger drives the reveal, not the page
+    const prevOverflow = document.documentElement.style.overflow;
+    const prevTouchAction = document.documentElement.style.touchAction;
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.touchAction = 'none';
+
     const track = trackRef.current;
     const chars = charElsRef.current.filter(Boolean);
     if (!track || chars.length === 0) return;
@@ -194,7 +200,8 @@ export default function Preloader({ onDone }) {
       scrubTo(targetProgress.current + delta);
     };
 
-    // Mobile Touch listeners (tracks both vertical and horizontal swipes)
+    // Mobile Touch listeners – both axes drive the scrub; always prevent default
+    // so vertical scrolling doesn't navigate the page while in the preloader.
     let touchStartX = 0;
     let touchStartY = 0;
     const onTouchStart = (e) => {
@@ -202,13 +209,16 @@ export default function Preloader({ onDone }) {
       touchStartY = e.touches[0].clientY;
     };
     const onTouchMove = (e) => {
+      // Block native scroll/bounce so finger movement only drives the reveal
+      e.preventDefault();
       const currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
-      const deltaX = (touchStartX - currentX) * 0.0026;
-      const deltaY = (touchStartY - currentY) * 0.0026;
+      const deltaX = (touchStartX - currentX) * 0.0028;
+      const deltaY = (touchStartY - currentY) * 0.0028;
       touchStartX = currentX;
       touchStartY = currentY;
-      scrubTo(targetProgress.current + (Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY));
+      // Use whichever axis has greater travel; finger can swipe any direction
+      scrubTo(targetProgress.current + (Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : deltaY));
     };
 
     // Keyboard navigation
@@ -247,6 +257,9 @@ export default function Preloader({ onDone }) {
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('resize', onResize);
+      // Restore scroll when phase ends
+      document.documentElement.style.overflow = prevOverflow;
+      document.documentElement.style.touchAction = prevTouchAction;
       tl.kill();
     };
   }, [phase, triggerDotZoom, completeExit]);

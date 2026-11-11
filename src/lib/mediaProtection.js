@@ -1,78 +1,82 @@
 /**
- * Global media protection: Prevents click-hold-drag on all images and videos,
- * protecting assets across the entire application (both existing and dynamically added).
+ * Global media protection: Prevents click/tap-hold-drag on all images and videos.
+ * Covers desktop drag, mobile long-press "Save Image", and iOS context menus.
+ * Both existing and dynamically added assets are protected automatically.
  */
 export function initMediaProtection() {
   if (typeof window === 'undefined') return;
 
-  // 1. Intercept and block HTML5 dragstart at the capture phase
-  window.addEventListener(
-    'dragstart',
-    (e) => {
-      const el = e.target;
-      if (
-        el instanceof HTMLImageElement ||
-        el instanceof HTMLVideoElement ||
-        el?.tagName === 'IMG' ||
-        el?.tagName === 'VIDEO' ||
-        el?.closest?.('img, video, picture, .shot, .modal-preview, .lightbox-content, .fc')
-      ) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    },
-    { capture: true }
-  );
+  const MEDIA_SELECTOR = 'img, video, picture';
+  const MEDIA_CONTAINERS = '.shot, .modal-preview, .lightbox-content, .fc, .modal-body';
 
-  // 2. Ensure draggable is set to false on any element interacted with
+  /** Check if the event target is a protected media element */
+  const isProtected = (el) =>
+    el instanceof HTMLImageElement ||
+    el instanceof HTMLVideoElement ||
+    el?.tagName === 'IMG' ||
+    el?.tagName === 'VIDEO' ||
+    el?.tagName === 'PICTURE' ||
+    el?.closest?.(MEDIA_CONTAINERS);
+
+  // 1. Block HTML5 dragstart (desktop click-hold-drag)
+  window.addEventListener('dragstart', (e) => {
+    if (isProtected(e.target)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, { capture: true });
+
+  // 2. Block contextmenu (right-click on desktop + tap-hold on Android Chrome)
+  window.addEventListener('contextmenu', (e) => {
+    if (isProtected(e.target)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, { capture: true });
+
+  // 3. Block iOS long-press "Save Image" (fires on touchstart for 500ms+)
+  //    Setting touch-action via JS makes sure it's applied even before CSS loads.
   const applyProtection = (el) => {
     if (!el) return;
-    if (el.tagName === 'IMG' || el.tagName === 'VIDEO') {
-      if (el.getAttribute('draggable') !== 'false') {
-        el.setAttribute('draggable', 'false');
+    const applyToEl = (node) => {
+      if (node.tagName === 'IMG' || node.tagName === 'VIDEO' || node.tagName === 'PICTURE') {
+        node.setAttribute('draggable', 'false');
+        node.style.webkitTouchCallout = 'none'; // iOS Safari long-press menu
+        node.style.userSelect = 'none';
+        node.style.webkitUserSelect = 'none';
       }
-    }
+    };
+    applyToEl(el);
     if (el.querySelectorAll) {
-      el.querySelectorAll('img, video').forEach((media) => {
-        if (media.getAttribute('draggable') !== 'false') {
-          media.setAttribute('draggable', 'false');
-        }
-      });
+      el.querySelectorAll(MEDIA_SELECTOR).forEach(applyToEl);
     }
   };
 
-  // Prevent drag initiation on pointerdown / mousedown while preserving clicks
-  window.addEventListener(
-    'pointerdown',
-    (e) => {
-      applyProtection(e.target);
-    },
-    { capture: true, passive: true }
-  );
+  // 4. Apply on any pointer interaction (catches lazy-loaded or portal media)
+  window.addEventListener('pointerdown', (e) => {
+    applyProtection(e.target);
+  }, { capture: true, passive: true });
 
-  // 3. MutationObserver ensures ANY future dynamically added images/videos are instantly protected
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      for (const node of mutation.addedNodes) {
-        if (node.nodeType === 1) {
-          applyProtection(node);
-        }
+  // 5. MutationObserver: auto-protect future dynamically added media
+  const mo = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      for (const node of m.addedNodes) {
+        if (node.nodeType === 1) applyProtection(node);
       }
     }
   });
 
-  const startObserver = () => {
+  const start = () => {
     if (document.body) {
-      observer.observe(document.body, { childList: true, subtree: true });
+      mo.observe(document.body, { childList: true, subtree: true });
       applyProtection(document.body);
     }
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startObserver);
+    document.addEventListener('DOMContentLoaded', start);
   } else {
-    startObserver();
+    start();
   }
 }
 

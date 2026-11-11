@@ -2,10 +2,31 @@ import { useState } from 'react';
 
 // Common aliases and special case overrides for Simple Icons CDN
 const SLUG_OVERRIDES = {
-  // Social
+  // Social Media & Contact
   whatsapp: 'whatsapp',
   linkedin: 'linkedin',
   github: 'github',
+  instagram: 'instagram',
+  twitter: 'x',
+  'twitter / x': 'x',
+  x: 'x',
+  youtube: 'youtube',
+  tiktok: 'tiktok',
+  facebook: 'facebook',
+  telegram: 'telegram',
+  discord: 'discord',
+  dribbble: 'dribbble',
+  behance: 'behance',
+  medium: 'medium',
+  devto: 'devdotto',
+  'dev.to': 'devdotto',
+  hashnode: 'hashnode',
+  stackoverflow: 'stackoverflow',
+  'stack overflow': 'stackoverflow',
+  reddit: 'reddit',
+  twitch: 'twitch',
+  producthunt: 'producthunt',
+  'product hunt': 'producthunt',
 
   // Front-end
   html: 'html5',

@@ -203,9 +203,11 @@ footer{padding:1.6rem 5vw;font-weight:800;font-size:.85rem;display:grid;gap:.6re
 .kit b:hover .si-icon,.bt:hover .si-icon{filter:invert(1)}
 :root[data-theme="dark"] .kit b:hover .si-icon,:root[data-theme="dark"] .bt:hover .si-icon{filter:invert(0)}
 
-/* Universal Media Asset Protection: Disables click-hold-drag and native image dragging across all media */
-img,video,picture,canvas,.shot,.modal-preview,.lightbox-content,.fc{-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;-o-user-drag:none;user-drag:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none}
-.shot img,.shot video,.modal-preview img,.modal-preview video,.lightbox-content img,.fc img{-webkit-user-drag:none;user-drag:none;user-select:none}
+/* Universal Media Asset Protection: no drag, no tap-hold save, no context menu on assets */
+img,video,picture{-webkit-user-drag:none;-khtml-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;pointer-events:inherit}
+.shot img,.shot video,.modal-preview img,.modal-preview video,.lightbox-content img,.fc img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;user-drag:none}
+/* Preloader phase: prevent overscroll while text reveal is active */
+.preloader-phase-reveal{touch-action:none;overflow:hidden}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.fc::before{transform:none}.fc img{clip-path:none}.ch,.tag,.hero p,.kit b,.hero-bts{opacity:1}.ci,.sl,.mq{transform:none}.preloader{display:none!important}}
 
