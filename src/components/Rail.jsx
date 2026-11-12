@@ -23,19 +23,20 @@ export default function Rail() {
         tick = 0;
         const max = H.scrollHeight - innerHeight;
         const ratio = scrollY / (max || 1);
+        const clamped = Math.min(1, Math.max(0, ratio));
         if (meter.current) {
           meter.current.textContent = ('00' + Math.round(ratio * 180)).slice(-3);
         }
         if (progressLine.current) {
-          progressLine.current.style.transform = `scaleY(${Math.min(1, Math.max(0, ratio))})`;
-          progressLine.current.style.setProperty('--scroll-x', `${Math.min(1, Math.max(0, ratio)) * 100}%`);
+          const isDesktop = window.innerWidth >= 900;
+          progressLine.current.style.transform = isDesktop ? `scaleY(${clamped})` : `scaleX(${clamped})`;
         }
       });
     };
     addEventListener('scroll', onScroll, { passive: true });
 
     const io = new IntersectionObserver(
-      (es) => es.forEach((x) => x.isIntersecting && setOn(x.target.id)),
+      (es) => es.forEach((x) => x.isIntersecting && setOn((prev) => (prev === x.target.id ? prev : x.target.id))),
       { rootMargin: '-45% 0px -50% 0px' }
     );
     document.querySelectorAll('.sec').forEach((n) => io.observe(n));

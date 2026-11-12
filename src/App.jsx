@@ -21,8 +21,8 @@ export default function App() {
       } catch {
         /* storage disabled */
       }
-      setPreloaderDone(false);
       window.scrollTo({ top: 0, behavior: 'instant' });
+      window.location.reload();
     };
     window.addEventListener('replay-intro', handleReplay);
     return () => window.removeEventListener('replay-intro', handleReplay);

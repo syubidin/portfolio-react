@@ -175,22 +175,33 @@ export default function Preloader({ onDone }) {
       );
     });
 
-    // Function to scrub timeline with smooth GSAP tween
+    // Coalesce high-frequency wheel and touchmove events using requestAnimationFrame
+    // for silky 60fps/120fps scrubbing without GC pressure on low-end CPUs
+    let scrubRaf = null;
+    const scheduleScrub = () => {
+      if (scrubRaf) return;
+      scrubRaf = requestAnimationFrame(() => {
+        scrubRaf = null;
+        if (isZooming.current || isExiting.current || !tl) return;
+
+        gsap.to(tl, {
+          progress: targetProgress.current,
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto',
+          onUpdate: () => {
+            if (tl.progress() >= 0.985 && !isZooming.current) {
+              triggerDotZoom();
+            }
+          },
+        });
+      });
+    };
+
     const scrubTo = (newProgress) => {
       if (isZooming.current || isExiting.current) return;
       targetProgress.current = Math.min(1.0, Math.max(0, newProgress));
-
-      gsap.to(tl, {
-        progress: targetProgress.current,
-        duration: 0.55,
-        ease: 'power2.out',
-        overwrite: 'auto',
-        onUpdate: () => {
-          if (tl.progress() >= 0.985 && !isZooming.current) {
-            triggerDotZoom();
-          }
-        },
-      });
+      scheduleScrub();
     };
 
     // Desktop Wheel listener
@@ -257,6 +268,7 @@ export default function Preloader({ onDone }) {
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('resize', onResize);
+      if (scrubRaf) cancelAnimationFrame(scrubRaf);
       // Restore scroll when phase ends
       document.documentElement.style.overflow = prevOverflow;
       document.documentElement.style.touchAction = prevTouchAction;
