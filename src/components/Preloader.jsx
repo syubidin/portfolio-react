@@ -8,6 +8,18 @@ export default function Preloader({ onDone }) {
   const [phase, setPhase] = useState('loading'); // 'loading' | 'reveal'
   const [loadPercent, setLoadPercent] = useState(0);
 
+  // Lock scroll for entire preloader lifetime (both loading + reveal phases)
+  useEffect(() => {
+    const prevOverflow = document.documentElement.style.overflow;
+    const prevTouchAction = document.documentElement.style.touchAction;
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.touchAction = 'none';
+    return () => {
+      document.documentElement.style.overflow = prevOverflow;
+      document.documentElement.style.touchAction = prevTouchAction;
+    };
+  }, []);
+
   const overlayRef = useRef(null);
   const trackRef = useRef(null);
   const dotExpandRef = useRef(null);
@@ -111,12 +123,6 @@ export default function Preloader({ onDone }) {
   // Phase 2: Horizontal Scroll-Driven Text Reveal with GSAP Scrubbing
   useEffect(() => {
     if (phase !== 'reveal') return;
-
-    // Lock body scroll on mobile so the finger drives the reveal, not the page
-    const prevOverflow = document.documentElement.style.overflow;
-    const prevTouchAction = document.documentElement.style.touchAction;
-    document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.touchAction = 'none';
 
     const track = trackRef.current;
     const chars = charElsRef.current.filter(Boolean);
@@ -269,9 +275,6 @@ export default function Preloader({ onDone }) {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('resize', onResize);
       if (scrubRaf) cancelAnimationFrame(scrubRaf);
-      // Restore scroll when phase ends
-      document.documentElement.style.overflow = prevOverflow;
-      document.documentElement.style.touchAction = prevTouchAction;
       tl.kill();
     };
   }, [phase, triggerDotZoom, completeExit]);
