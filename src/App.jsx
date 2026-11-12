@@ -22,7 +22,7 @@ export default function App() {
         /* storage disabled */
       }
       window.scrollTo({ top: 0, behavior: 'instant' });
-      window.location.reload();
+      setPreloaderDone(false);
     };
     window.addEventListener('replay-intro', handleReplay);
     return () => window.removeEventListener('replay-intro', handleReplay);

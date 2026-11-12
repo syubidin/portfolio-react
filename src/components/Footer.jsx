@@ -7,8 +7,7 @@ export default function Footer() {
     } catch {
       /* storage blocked */
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    window.location.reload();
+    window.dispatchEvent(new CustomEvent('replay-intro'));
   };
 
   return (

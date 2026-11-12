@@ -10,15 +10,32 @@ export default function Preloader({ onDone }) {
 
   // Lock scroll for entire preloader lifetime (both loading + reveal phases)
   useEffect(() => {
-    const prevOverflow = document.documentElement.style.overflow;
-    const prevTouchAction = document.documentElement.style.touchAction;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevHtmlTouchAction = document.documentElement.style.touchAction;
+    const prevBodyOverflow = document.body.style.overflow;
+
     document.documentElement.style.overflow = 'hidden';
     document.documentElement.style.touchAction = 'none';
-    return () => {
-      document.documentElement.style.overflow = prevOverflow;
-      document.documentElement.style.touchAction = prevTouchAction;
+    document.body.style.overflow = 'hidden';
+
+    // Prevent default on wheel during phase 1 (loading phase)
+    const preventScroll = (e) => {
+      if (phase !== 'reveal') {
+        e.preventDefault();
+      }
     };
-  }, []);
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.documentElement.style.touchAction = prevHtmlTouchAction;
+      document.body.style.overflow = prevBodyOverflow;
+    };
+  }, [phase]);
 
   const overlayRef = useRef(null);
   const trackRef = useRef(null);
