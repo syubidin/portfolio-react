@@ -1,0 +1,16 @@
+# Auto-detect text/binary
+* text=auto
+
+# Binary media — never alter line endings or encoding
+*.mp4 binary
+*.webm binary
+*.gif binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
