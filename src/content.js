@@ -64,8 +64,8 @@ const SITE = {
       title: "TETHER: Telemetry Integrity Gate",
       text: "A lightweight, CPU-first motorsport telemetry integrity prototype combining a compact Random Forest classifier, deterministic dropout/stuck rules, trusted cross-sensor baseline verification, and real-time streaming packet ingestion. Identifies when sensor signals may no longer be reliable before they reach downstream engineering decisions.",
       stack: ["Python", "Scikit-learn", "Pandas", "NumPy", "Streamlit", "FastAPI", "C++17", "Docker"],
-      image: "assets/projects/tether.png",
-      preview: "assets/projects/tether.mp4",
+      image: "assets/projects/tether.png?v=2",
+      preview: "assets/projects/tether.mp4?v=2",
       demo: "https://tether-telemetry-integrity.streamlit.app/",
       repo: "https://github.com/syubidin/tether-telemetry-integrity",
       caseStudy: {

@@ -36,6 +36,8 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
   const [hasEnded, setHasEnded] = useState(false);
   const [mediaError, setMediaError] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [retriedImg, setRetriedImg] = useState(false);
+  const [retriedMedia, setRetriedMedia] = useState(false);
   const [inView, setInView] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
@@ -44,6 +46,35 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
   const previewSrc = project.preview;
   const isVideo = previewSrc && !previewSrc.endsWith('.gif');
   const isGif = previewSrc && previewSrc.endsWith('.gif');
+
+  const handleImgError = (e) => {
+    if (!retriedImg && project.image) {
+      setRetriedImg(true);
+      setTimeout(() => {
+        if (e.target) {
+          const sep = project.image.includes('?') ? '&' : '?';
+          e.target.src = `${project.image}${sep}_r=${Date.now()}`;
+        }
+      }, 1000);
+    } else {
+      setImgError(true);
+    }
+  };
+
+  const handleMediaError = () => {
+    if (!retriedMedia && previewSrc && isVideo && videoRef.current) {
+      setRetriedMedia(true);
+      setTimeout(() => {
+        if (videoRef.current) {
+          const sep = previewSrc.includes('?') ? '&' : '?';
+          videoRef.current.src = `${previewSrc}${sep}_r=${Date.now()}`;
+          videoRef.current.load();
+        }
+      }, 1000);
+    } else {
+      setMediaError(true);
+    }
+  };
 
   // Check if project has no valid image or video preview
   const hasNoImage = (!project.image || imgError) && (!previewSrc || mediaError);
@@ -174,7 +205,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
           loading={isModal ? 'eager' : 'lazy'}
           decoding="async"
           draggable={false}
-          onError={() => setImgError(true)}
+          onError={handleImgError}
           className="project-static-img"
           style={{
             opacity: showVideo || showGif ? 0 : 1,
@@ -193,7 +224,7 @@ function ProjectMedia({ project, isModal = false, onZoom }) {
           draggable={false}
           preload={inView ? 'metadata' : 'none'}
           onEnded={handleVideoEnded}
-          onError={() => setMediaError(true)}
+          onError={handleMediaError}
           className="project-video-preview"
           style={{
             opacity: showVideo ? 1 : 0,
