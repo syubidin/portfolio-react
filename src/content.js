@@ -60,6 +60,40 @@ const SITE = {
     },
     {
       year: "2026",
+      category: "Independent",
+      title: "TETHER: Telemetry Integrity Gate",
+      text: "A lightweight, CPU-first motorsport telemetry integrity prototype combining a compact Random Forest classifier, deterministic dropout/stuck rules, trusted cross-sensor baseline verification, and real-time streaming packet ingestion. Identifies when sensor signals may no longer be reliable before they reach downstream engineering decisions.",
+      stack: ["Python", "Scikit-learn", "Pandas", "NumPy", "Streamlit", "FastAPI", "C++17", "Docker"],
+      image: "assets/projects/tether.png",
+      preview: "assets/projects/tether.mp4",
+      demo: "https://tether-telemetry-integrity.streamlit.app/",
+      repo: "https://github.com/syubidin/tether-telemetry-integrity",
+      caseStudy: {
+        role: "Lead ML & Systems Engineer",
+        timeline: "Nov 2026",
+        overview: "TETHER (Telemetry Health & Event Reliability Engine) is an integrity gate designed to sit upstream of race engineering analytics. It detects when sensor channels become unreliable — from packet dropouts and frozen values to sensor drift, isolated spikes, and electrical noise — before they cause false alarms or wasted trackside investigations.",
+        challenges: [
+          "Distinguishing legitimate vehicle dynamics (RPM varying with speed and gear) from genuine sensor faults without triggering overwhelming false positives.",
+          "Detecting subtle sensor drift confidently when a single-channel trend alone is ambiguous and could represent real vehicle behavior.",
+          "Keeping the integrity gate CPU-first, low-latency, and portable without GPU or external infrastructure dependencies.",
+          "Ensuring real-time streaming ingestion correctly detects packet-sequence gaps and timestamp regressions without buffering an entire session."
+        ],
+        solutions: [
+          "Implemented dual-layer architecture: deterministic rules (≥20% missing = DROPOUT; ≥72% flatline = STUCK) for hard alerts, plus a compact 64-tree Random Forest for ambiguous signal patterns.",
+          "Built gear-conditioned RPM–speed cross-sensor baseline verification using robust linear regression; a healthy cross-sensor residual de-escalates false ML positives.",
+          "Architected a one-packet-at-a-time bounded sliding-window streaming engine and optional FastAPI bearer-token ingestion REST endpoint.",
+          "Developed optional C++17 native residual kernel via ctypes with automatic NumPy fallback for portability."
+        ],
+        highlights: [
+          "32 automated unit and integration tests passing across Python 3.11 and 3.12",
+          "94.5% macro-averaged accuracy on synthetic hold-out evaluation (330 windows, 6 classes)",
+          "1.00 precision/recall on DROPOUT, STUCK, SPIKE, NOISE, RPM-drift, and accelerometer-bias controlled fault injections",
+          "Real-time streaming with sequence gap detection, timestamp regression diagnosis, and duplicate packet rejection"
+        ]
+      }
+    },
+    {
+      year: "2026",
       category: "Freelance",
       title: "Lectura AI: Academic Copilot & Cognitive Learning Engine",
       text: "A cognitive learning copilot built with Next.js 16, TypeScript, Tailwind CSS, GSAP, and Google Gemini AI. Deconstructs dense lecture slides into 15-minute bite-sized modules, predicts tricky exam traps from a professor's mindset, generates Pareto 80/20 cram schedules, and explains complex theories via the Feynman Technique.",
