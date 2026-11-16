@@ -276,7 +276,7 @@ npm run preview
 ## 👤 About the Author
 
 **Syuby Alwi Akbar Attala**  
-*Full Stack Developer & Mobile App Developer*  
+*Junior Software Engineer*  
 Based in Bekasi, Indonesia 🇮🇩
 
 - 🎓 **Diploma in Informatics Management**, Politeknik LP3I Jakarta (*Best Graduate 2026, GPA 3.70 / 4.00*)
