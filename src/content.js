@@ -7,9 +7,9 @@ const SITE = {
 
   photo: "assets/face.png",
   about: [
-    "I like things that hold weight: clean schemas, bulletproof transaction invariants, and systems people can lean on.",
-    "I build core-banking ledger engines in Java 17 & Spring Boot, AI-driven web apps with Next.js & Google Gemini, and responsive platforms using React & PHP.",
-    "Focused on architectural rigor and reliable software. Open to entry-level Backend, Full Stack, or Software Engineer roles."
+    "I wanted to make things that can solve real-world problems.",
+    "Proficient in Java, Python, React and web development while also having a strong foundation in cloud technologies, database design, and software engineering principles.",
+    "Would love to work in a collaborative environment where I can contribute to meaningful projects. Open to entry-level Backend, Full Stack, or Software Engineer roles."
   ],
   facts: [
     ["Based in", "Bekasi, Indonesia"],
@@ -22,42 +22,6 @@ const SITE = {
   whatsapp: "https://wa.me/6289519850089?text=Halo%20Syuby,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi.",
 
   projects: [
-    {
-      year: "2026",
-      category: "Independent",
-      title: "CERMAT: Core-Banking Ledger Engine",
-      text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
-      stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
-      image: "assets/projects/cermat.png",
-      preview: "assets/projects/cermat.mp4",
-      demo: "https://cermat-production.up.railway.app/swagger-ui.html",
-      repo: "https://github.com/syubidin/cermat",
-      caseStudy: {
-        role: "Lead Backend & Distributed Systems Engineer",
-        timeline: "Sep 2026 - Oct 2026",
-        overview: "CERMAT (Catatan Elektronik, Rekonsiliasi, Mutasi, Audit, Transaksi) simulates core-banking ledger challenges where money can never duplicate, disappear, or settle inconsistently under concurrent stress.",
-        challenges: [
-          "Eliminating double-spending and race conditions when multiple concurrent debit requests hit the same account simultaneously.",
-          "Preventing transaction deadlocks when cross-account transfers (A→B and B→A) execute at the exact same millisecond.",
-          "Mitigating severe hot-row lock contention on the central system cash account during peak deposit volume.",
-          "Preventing Formula Injection attacks and redundant reprocessing in automated partner CSV reconciliation."
-        ],
-        solutions: [
-          "Implemented Double-Entry Bookkeeping (Debit = Credit) with kernel-level database triggers enforcing strict append-only ledger immutability (blocking UPDATE/DELETE).",
-          "Engineered atomic idempotency resolution using 'INSERT ... ON CONFLICT DO NOTHING' paired with SHA-256 payload verification.",
-          "Applied Pessimistic Write Locking ('SELECT ... FOR UPDATE') with deterministic ordering ('ORDER BY id') to guarantee zero transaction deadlocks.",
-          "Architected 16 dynamic balance shards for system cash accounts, reducing lock queue time and boosting deposit throughput by +30.9%.",
-          "Constructed runtime fraud detection rule engine (HIGH_AMOUNT, VELOCITY, NEW_PAYEE) and instant account freezing capabilities.",
-          "Secured multi-role RBAC via Stateless JWT (HS256), strict character whitelisting against CSV injection, and in-memory sliding-window rate limiting before BCrypt hashing."
-        ],
-        highlights: [
-          "104 automated unit, integration, and stress tests passing with 92% JaCoCo code coverage",
-          "Zero deadlocks and zero balance underflow proven under 150 concurrent transfers",
-          "Global mathematical invariant guarantee: total circulating balance strictly equals 0",
-          "Automated reconciliation engine matching partner records with 4 distinct discrepancy states"
-        ]
-      }
-    },
     {
       year: "2026",
       category: "Independent",
@@ -161,6 +125,42 @@ const SITE = {
     },
     {
       year: "2026",
+      category: "Independent",
+      title: "CERMAT: Core-Banking Ledger Engine",
+      text: "A production-grade double-entry ledger & financial engine designed to eliminate race conditions, double-spending, and deadlocks. Built with Java 17 and Spring Boot 3, featuring 16-shard cash scaling (+31% throughput) and 104 automated tests (92% JaCoCo coverage).",
+      stack: ["Java 17", "Spring Boot 3", "PostgreSQL", "Flyway", "Docker", "JWT", "JaCoCo", "REST APIs"],
+      image: "assets/projects/cermat.png",
+      preview: "assets/projects/cermat.mp4",
+      demo: "https://cermat-production.up.railway.app/swagger-ui.html",
+      repo: "https://github.com/syubidin/cermat",
+      caseStudy: {
+        role: "Lead Backend & Distributed Systems Engineer",
+        timeline: "Sep 2026 - Oct 2026",
+        overview: "CERMAT (Catatan Elektronik, Rekonsiliasi, Mutasi, Audit, Transaksi) simulates core-banking ledger challenges where money can never duplicate, disappear, or settle inconsistently under concurrent stress.",
+        challenges: [
+          "Eliminating double-spending and race conditions when multiple concurrent debit requests hit the same account simultaneously.",
+          "Preventing transaction deadlocks when cross-account transfers (A→B and B→A) execute at the exact same millisecond.",
+          "Mitigating severe hot-row lock contention on the central system cash account during peak deposit volume.",
+          "Preventing Formula Injection attacks and redundant reprocessing in automated partner CSV reconciliation."
+        ],
+        solutions: [
+          "Implemented Double-Entry Bookkeeping (Debit = Credit) with kernel-level database triggers enforcing strict append-only ledger immutability (blocking UPDATE/DELETE).",
+          "Engineered atomic idempotency resolution using 'INSERT ... ON CONFLICT DO NOTHING' paired with SHA-256 payload verification.",
+          "Applied Pessimistic Write Locking ('SELECT ... FOR UPDATE') with deterministic ordering ('ORDER BY id') to guarantee zero transaction deadlocks.",
+          "Architected 16 dynamic balance shards for system cash accounts, reducing lock queue time and boosting deposit throughput by +30.9%.",
+          "Constructed runtime fraud detection rule engine (HIGH_AMOUNT, VELOCITY, NEW_PAYEE) and instant account freezing capabilities.",
+          "Secured multi-role RBAC via Stateless JWT (HS256), strict character whitelisting against CSV injection, and in-memory sliding-window rate limiting before BCrypt hashing."
+        ],
+        highlights: [
+          "104 automated unit, integration, and stress tests passing with 92% JaCoCo code coverage",
+          "Zero deadlocks and zero balance underflow proven under 150 concurrent transfers",
+          "Global mathematical invariant guarantee: total circulating balance strictly equals 0",
+          "Automated reconciliation engine matching partner records with 4 distinct discrepancy states"
+        ]
+      }
+    },
+    {
+      year: "2026",
       category: "Academic",
       title: "CRM & Alumni Tracer Study System",
       text: "Final year project: an end-to-end CRM that tracks alumni, collects tracer study data and produces reports. Built from database schema to responsive UI, validated with institution staff over 3+ sessions.",
@@ -232,7 +232,11 @@ const SITE = {
     {
       when: "Jan 2022 to Jan 2023", kind: "Led", title: "Chairman, English Club", place: "SMKN 2 Kota Bekasi",
       points: ["Ran weekly sessions for 20+ members on speaking, debating and public communication."]
-    }
+    },
+    {
+      when: "Sep 2020 to May 2023", kind: "Study", title: "High School Diploma in Software Engineering", place: "SMK Negeri 2 Kota Bekasi",
+      points: ["•	Top 2 Graduate of Software Engineering Major.", "Finished 3-year vocational curriculum in software development, algorithms, and relational databases."]
+    },
   ],
 
   kit: {
@@ -243,7 +247,7 @@ const SITE = {
   },
 
   certs: [
-    { name: "Build an AI Agent", issuer: "IBM", year: "2026", doc: "assets/certs/build-an-ai-agent.pdf" },
+    { name: "Build an AI Agent", issuer: "IBM", year: "2026", doc: "assets/certs/build-an-ai-agent.pdf"},
     { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023", doc: "assets/certs/associate-data-scientist.pdf" },
     { name: "TOEIC Certification (945)", issuer: "Educational Testing Service", year: "2026", id: "1992618", doc: "assets/certs/toeic.pdf" },
     { name: "Junior Web Developer", issuer: "BNSP", year: "2023", id: "620902513300467052023", doc: "assets/certs/bnsp-junior-web-dev.pdf" },
