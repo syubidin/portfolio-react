@@ -206,6 +206,10 @@ const SITE = {
 
   trail: [
     {
+      when: "Nov 2026 to Present", kind: "Training", title: "AWS re/Start Trainee", place: "Amazon Web Services (AWS)",
+      points: ["Building a hands-on cloud foundation in Linux, networking, security, Python, and core AWS services (EC2, S3, IAM, VPC, RDS) through lab-based training, to prepare for deploying and operating web applications on AWS.upported rollout of a .NET accounting application across 5+ modules, including General Ledger.", "Extending my PostgreSQL/MySQL and Docker background into cloud infrastructure and managed databases, preparing for the AWS Certified Cloud Practitioner exam."]
+    },
+    {
       when: "Feb 2026 to Mar 2026", kind: "Work", title: "System Implementor (Internship)", place: "PT Erasoft Teknologi Indonesia",
       points: ["Supported rollout of a .NET accounting application across 5+ modules, including General Ledger.", "Configured modules, tested the system and documented setup steps."]
     },
@@ -239,6 +243,7 @@ const SITE = {
   },
 
   certs: [
+    { name: "Build an AI Agent", issuer: "IBM", year: "2026", doc: "assets/certs/build-an-ai-agent.pdf" },
     { name: "Associate Data Scientist", issuer: "Institut Teknologi Bandung", year: "2023", doc: "assets/certs/associate-data-scientist.pdf" },
     { name: "TOEIC Certification (945)", issuer: "Educational Testing Service", year: "2026", id: "1992618", doc: "assets/certs/toeic.pdf" },
     { name: "Junior Web Developer", issuer: "BNSP", year: "2023", id: "620902513300467052023", doc: "assets/certs/bnsp-junior-web-dev.pdf" },
